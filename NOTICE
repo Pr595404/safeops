@@ -1,0 +1,9 @@
+SafeOps
+Copyright 2026 SafeOps contributors
+
+This product includes a decision client and intervention pattern modeled on
+the Apache-2.0 licensed Strands Decider example:
+
+  https://github.com/strands-labs/strands-decider
+  examples/strands/_client.py
+  examples/strands/tool_call_intervention.py

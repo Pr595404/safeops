@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "safeops"
+version = "0.1.0"
+description = "Safe cloud-incident investigation agent with Strands Decider guardrails and deterministic policy."
+readme = "README.md"
+license = "Apache-2.0"
+requires-python = ">=3.10"
+authors = [{ name = "SafeOps contributors" }]
+keywords = ["strands", "decider", "guardrails", "agents"]
+dependencies = []
+
+[project.optional-dependencies]
+# Install only when you are ready to run the live Strands agent (Bedrock).
+# Ask before installing: this is not required for unit tests.
+strands = ["strands-agents"]
+# Install only when you will serve Strands Decider 2B locally. Heavy (torch).
+# Official package: https://github.com/strands-labs/strands-decider
+decider = ["strands-decider"]
+test = ["pytest"]
+
+[project.scripts]
+safeops = "safeops.__main__:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+safeops = ["py.typed", "data/*.json"]

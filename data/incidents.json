@@ -1,0 +1,64 @@
+{
+  "resources": {
+    "web-api-prod": {
+      "resource_id": "i-0safeops01",
+      "name": "web-api-prod",
+      "service": "ec2-mock",
+      "region": "us-east-1",
+      "status": "impaired",
+      "cpu_percent": 91.4,
+      "memory_percent": 72.0
+    },
+    "payments-worker": {
+      "resource_id": "i-0safeops02",
+      "name": "payments-worker",
+      "service": "ec2-mock",
+      "region": "us-east-1",
+      "status": "healthy",
+      "cpu_percent": 18.2,
+      "memory_percent": 41.0
+    }
+  },
+  "alarms": [
+    {
+      "alarm_id": "ALM-401",
+      "resource_name": "web-api-prod",
+      "metric": "TargetResponseTime",
+      "threshold_ms": 400,
+      "observed_ms": 1280,
+      "state": "ALARM"
+    }
+  ],
+  "logs": {
+    "web-api-prod": [
+      "2026-10-15T14:02:11Z WARN p99_latency_ms=1312 route=/checkout",
+      "2026-10-15T14:02:40Z ERROR upstream timeout from catalog-svc",
+      "2026-10-15T14:03:05Z INFO retry succeeded after 2 attempts"
+    ],
+    "payments-worker": [
+      "2026-10-15T14:01:00Z INFO processed 240 messages"
+    ]
+  },
+  "metrics": {
+    "web-api-prod": {
+      "p99_latency_ms": 1280,
+      "error_rate": 0.041,
+      "rps": 310
+    },
+    "payments-worker": {
+      "p99_latency_ms": 42,
+      "error_rate": 0.0001,
+      "rps": 80
+    }
+  },
+  "incidents": [
+    {
+      "incident_id": "INC-001",
+      "title": "Checkout API latency spike",
+      "severity": "SEV-2",
+      "status": "open",
+      "resource_name": "web-api-prod",
+      "summary": "Synthetic alarm: checkout p99 latency exceeded 400ms for 8 minutes. No production systems are involved."
+    }
+  ]
+}
